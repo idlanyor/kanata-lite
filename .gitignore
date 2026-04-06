@@ -1,0 +1,8 @@
+node_modules/
+.env
+auth_info_baileys/
+db.json
+yarn.lock
+package-lock.json
+.codex
+.gemini/
