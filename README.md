@@ -18,13 +18,46 @@ Minimalist WhatsApp Bot built with `@whiskeysockets/baileys`. Designed to be lig
 - **💾 Persistent Settings:** Saves your configurations using `lowdb`.
 - **🔗 Dual Auth:** Supports both QR Code and Pairing Code.
 
-## 🛠️ Commands
+## 📂 Project Structure
 
-| Command | Description |
-|---------|-------------|
-| `.ping` | Check bot's response speed and system info. |
-| `.is` | Show detailed system and bot status. |
-| `.anticall` | Toggle Anti-Call feature (`on`/`off`). |
+```text
+src/
+├── config/             # Configuration & DB initialization
+│   ├── env.js          # Environment variables management
+│   └── database.js     # lowdb setup
+├── lib/                # Reusable utilities & libraries
+│   ├── logger.js       # Centralized terminal logger
+│   └── utils.js        # Helper functions
+├── plugins/            # Command/Plugin directory (Auto-loaded)
+│   ├── ping.js
+│   ├── is.js
+│   └── anticall.js
+├── events/             # Event handlers
+│   ├── connection.js   # Socket connection updates
+│   ├── call.js         # Incoming call handling
+│   └── message.js      # Message processing & command execution
+└── index.js            # Main entry point (Orchestrator)
+```
+
+---
+
+## 🛠️ Adding New Commands
+
+Adding a new feature is easy! Just create a new `.js` file in `src/plugins/`:
+
+```javascript
+// src/plugins/hello.js
+let handler = async (m, { conn, args }) => {
+  await m.reply('Hello there!');
+}
+
+handler.help = ['hello']
+handler.command = ['hello', 'hi'] // Multiple aliases
+handler.tags = ['main']
+
+export default handler
+```
+The bot will automatically detect and load your new command.
 
 ---
 
